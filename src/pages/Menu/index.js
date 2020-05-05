@@ -23,7 +23,6 @@ export default function Menu(){
   const [deaths,setDeaths] = useState(0);
   const [recovered,setRecovered] = useState(0);
   const [updated_at,setUpdated_at] = useState('');
-  const [fill,setFill] = useState(0);
 
   //NAVIGATE
 
@@ -47,7 +46,7 @@ export default function Menu(){
   }
 
   async function loadInfo(){
-    const res = await api.get('brazil')
+    const res = await api.get('https://covid19-brazil-api.now.sh/api/report/v1/brazil')
 
     const info = res.data
 
@@ -56,7 +55,7 @@ export default function Menu(){
     setDeaths(info.data.deaths)
     setRecovered(info.data.recovered)
     setUpdated_at(info.data.updated_at)
-    setFill((cases/confirmed) * 100)
+
   }
 
   useEffect(() => {
@@ -81,7 +80,7 @@ export default function Menu(){
                         <Image style={styles.iconsButton} source={icon_3} />
                         <Text style={styles.textButton}>Teste</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={() => navigateToInfo((cases/confirmed) * 100)}>
+                    <TouchableOpacity style={styles.button} onPress={() => navigateToInfo((recovered/confirmed) * 100)}>
                         <Image style={styles.iconsButton} source={icon_4} />
                         <Text style={styles.textButton}>Estatística</Text>
                     </TouchableOpacity>
@@ -139,6 +138,7 @@ const styles = StyleSheet.create({
         fontWeight:'bold',
         fontSize:16,
         paddingBottom:20,
+        color:"#888888"
     },
     developers:{
         fontSize:16,

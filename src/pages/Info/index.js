@@ -2,13 +2,14 @@ import React, { useState, useEffect, useDebugValue } from 'react';
 import {View,Text, StyleSheet, TouchableOpacity} from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
-import constants from 'expo-constants'
+import constants from 'expo-constants';
 import { Feather } from '@expo/vector-icons';
 
 
 //https://covid19-brazil-api.now.sh/api/report/v1/brazil - brasil 
 //https://covid19-brazil-api.now.sh/api/report/v1 - estados
 //https://covid19-brazil-api.now.sh/api/report/v1/brazil/uf/sp - estado unico
+// https://devarthurribeiro.github.io/covid19-brazil-api/static/flags/SP.png
 
 /*
     "cases": 48335,
@@ -53,7 +54,7 @@ export default function Info(){
             size={240}
             width={8}
             fill={fill}
-            tintColor="#8A67D2"
+            tintColor="#7BE37B"
             onAnimationComplete={() => {}}
             backgroundColor="#BB99FF"
             duration={3000}
@@ -63,21 +64,21 @@ export default function Info(){
             //animate={(toVal: number, duration: number, ease: function)}
             >
                 {fill => <>
-                    <Text style={styles.circularProgressText2}>{confirmed}</Text>
+                    <Text style={styles.circularProgressText2}>{Intl.NumberFormat('pt-BR').format(confirmed)}</Text>
                     <Text style={styles.circularProgressText3}>CASOS</Text>
                 </>}
           </AnimatedCircularProgress>
           <View style={styles.division}>
             <View style={styles.divisionText}>
-              <Text style={styles.textDescription1}>{recovered}</Text>
-              <Text style={styles.description}>RECUPERADOS</Text>
+              <Text style={[styles.textDescription1,{color:'#7BE37B'}]}>{Intl.NumberFormat('pt-BR').format(recovered)}</Text>
+              <Text style={[styles.description,{color:'#7BE37B'}]}>RECUPERADOS</Text>
             </View>
             <View style={styles.divisionText}>
-              <Text style={styles.textDescription1}>{cases}</Text>
-              <Text style={styles.description}>ATIVOS</Text>
+              <Text style={[styles.textDescription1,{color:'#BB99FF'}]}>{Intl.NumberFormat('pt-BR').format(cases)}</Text>
+              <Text style={[styles.description,{color:'#BB99FF'}]}>ATIVOS</Text>
             </View>
             <View style={styles.divisionText}>
-              <Text style={[styles.textDescription1,{color:'#999'}]}>{deaths}</Text>
+              <Text style={[styles.textDescription1,{color:'#999'}]}>{Intl.NumberFormat('pt-BR').format(deaths)}</Text>
               <Text style={[styles.description,{color:'#999'}]}>ÓBITOS</Text>
             </View>
             <Text style={{color:'#CCC', position:'absolute',bottom:0,marginBottom:'1%'}}>Atualizado em {updated_at}</Text>
@@ -105,7 +106,8 @@ const styles = StyleSheet.create({
     fontWeight:'bold',
     fontSize:42,
     //backgroundColor:'red',
-    paddingBottom:20
+    paddingBottom:20,
+    color:'#666',
   },
   circularProgressText1:{
     color:'#999',
@@ -113,7 +115,8 @@ const styles = StyleSheet.create({
   },
   circularProgressText2:{
     fontSize:28,
-    fontWeight:'bold'
+    fontWeight:'bold',
+    color:'#666'
   },
   circularProgressText3:{
     paddingTop:10,
