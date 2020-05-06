@@ -2,7 +2,11 @@ import React from 'react';
 import {StyleSheet,View,Text,ImageBackground, TouchableOpacity} from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
-import constants from 'expo-constants'
+import constants from 'expo-constants';
+import {
+  AdMobBanner,
+  AdMobInterstitial
+} from 'expo-ads-admob';
 
 export default function Dicas(){
 
@@ -71,6 +75,12 @@ export default function Dicas(){
             </View>
           </View>
         </View>
+        <AdMobBanner
+          style={{position:'absolute',bottom:0}}
+          bannerSize="fullBanner"
+          adUnitID="ca-app-pub-2415885204681618/4497652900"
+          servePersonalizedAds
+          onDidFailToReceiveAdWithError={(err) => {console.log(err)}} />
       </ImageBackground>
   );
 }

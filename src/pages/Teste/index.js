@@ -4,7 +4,10 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 import api from '../../services/api';
-
+import {
+  AdMobBanner,
+  AdMobInterstitial
+} from 'expo-ads-admob';
 
 function Item({uf,cases,deaths}) {
 
@@ -36,13 +39,27 @@ export default function App() {
 
   }
 
+  async function InterstialAd(){
+    await AdMobInterstitial.requestAdAsync({ servePersonalizedAds: true});
+    await AdMobInterstitial.showAdAsync();
+  }
+
   useEffect(() => {
+
+    async function loadAd(){
+      AdMobInterstitial.setAdUnitID('ca-app-pub-2415885204681618/4046581980'); // Test ID, Replace with your-admob-unit-id
+      InterstialAd();
+    }
+    loadAd();
     loadInfo();
   },[])
 
   return (
     
     <ImageBackground source={require('../../../assets/background-5.png')} style={styles.container}>
+          <TouchableOpacity onPress={navigateBack} style={{paddingTop:Constants.statusBarHeight,position:'absolute',zIndex:5,top:5,left:1}} >
+            <Feather color={'#666'} size={30} name='chevron-left'></Feather>
+          </TouchableOpacity>
       <View style={styles.indiceText}>
         <Text style={[styles.text,{marginLeft:'33%',width:'1%'}]}>
           CASOS
@@ -66,7 +83,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: Constants.statusBarHeight,
+    //marginTop: Constants.statusBarHeight,
     justifyContent:'flex-end',
     alignItems:'center'
   },
@@ -123,5 +140,5 @@ const styles = StyleSheet.create({
     width:'15%',
     textAlign:'center',
     color:'#888888'
-  }
+  },
 });

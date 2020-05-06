@@ -10,6 +10,8 @@ import Dicas from './pages/Dicas';
 import Sintomas from './pages/Sintomas';
 import Teste from './pages/Teste';
 import Devs from './pages/Devs';
+import Breve from './pages/Breve';
+
 
 export default function Routes(){
     return(
@@ -21,6 +23,7 @@ export default function Routes(){
                 <AppStack.Screen name='Sintomas' component={Sintomas} />
                 <AppStack.Screen name='Teste' component={Teste} />
                 <AppStack.Screen name='Devs' component={Devs} />
+                <AppStack.Screen name='Breve' component={Breve} />
             </AppStack.Navigator>
         </NavigationContainer>
     );

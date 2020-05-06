@@ -1,10 +1,13 @@
-import React, { useState, useEffect, useDebugValue } from 'react';
+import React, { useEffect } from 'react';
 import {View,Text, StyleSheet, TouchableOpacity} from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import constants from 'expo-constants';
 import { Feather } from '@expo/vector-icons';
-
+import {
+  AdMobBanner,
+  AdMobInterstitial
+} from 'expo-ads-admob';
 
 //https://covid19-brazil-api.now.sh/api/report/v1/brazil - brasil 
 //https://covid19-brazil-api.now.sh/api/report/v1 - estados
@@ -19,9 +22,6 @@ import { Feather } from '@expo/vector-icons';
     "recovered": 38039,
     "updated_at": "2020-05-02T21:32:32.000Z"
 */
-
-
-
 
 export default function Info(){
 
@@ -39,6 +39,27 @@ export default function Info(){
     navigation.goBack();
   }
 
+  function navigateToTeste() {
+    navigation.navigate('Teste');
+  }
+
+  /*
+  async function InterstialAd(){
+    await AdMobInterstitial.requestAdAsync({ servePersonalizedAds: true});
+    await AdMobInterstitial.showAdAsync();
+  }
+
+
+  useEffect(() => {
+    async function loadAd(){
+      AdMobInterstitial.setAdUnitID('ca-app-pub-2415885204681618/4046581980'); // Test ID, Replace with your-admob-unit-id
+      InterstialAd();
+    }
+    loadAd();
+  },[])
+
+  */
+ 
   return(
     <>
       <View style={styles.viewBack}>
@@ -83,8 +104,9 @@ export default function Info(){
             </View>
             <Text style={{color:'#CCC', position:'absolute',bottom:0,marginBottom:'1%'}}>Atualizado em {updated_at}</Text>
           </View>
-                
-
+          <TouchableOpacity onPress={navigateToTeste} style={styles.statesButton}>
+            <Feather style={styles.iconSearch} color={'#FFF'} size={40} name='search'></Feather>
+          </TouchableOpacity>     
       </View>
     </>
   );
@@ -157,5 +179,21 @@ const styles = StyleSheet.create({
     paddingTop:"5%",
     height:'25%',
     //paddingBottom:'10%'
+  },
+  statesButton:{
+    position:'absolute',
+    zIndex:5,
+    width:70,
+    height:70,
+    backgroundColor:'#8A67D2',
+    borderRadius:50,
+    alignItems:'center',
+    justifyContent:'center',
+    elevation:4,
+    bottom:50,
+    right:20
+  },
+  iconSearch:{
+
   }
 })

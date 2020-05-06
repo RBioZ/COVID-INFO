@@ -1,11 +1,10 @@
 {
   "expo": {
     "name": "COVID-INFO",
-    "slug": "COVID-INFO",
+    "slug": "covid-info",
     "platforms": [
       "ios",
-      "android",
-      "web"
+      "android"
     ],
     "version": "1.0.0",
     "orientation": "portrait",
@@ -22,7 +21,17 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-2415885204681618~1135964727"
+      }
+    },
+      "android": {
+        "package": "com.rbioz.covidinfo",
+        "versionCode": 1,
+        "config": {
+          "googleMobileAdsAppId": "ca-app-pub-2415885204681618~1135964727"
+        }
     }
   }
 }

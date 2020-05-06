@@ -2,10 +2,10 @@ import React,{useState,useEffect} from 'react';
 import {StyleSheet,View,Text, ImageBackground,TouchableOpacity,Image} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import api from '../../services/api';
-
-//Imports Icons
-
-//onPress={() => navigateToDetail(Dicas)}
+import {
+  AdMobBanner,
+  AdMobInterstitial
+} from 'expo-ads-admob';
 
 
 import icon_1 from '../../../assets/svg/frame1.png';
@@ -26,23 +26,23 @@ export default function Menu(){
 
   //NAVIGATE
 
-  function navigateToDicas(data) {
-    navigation.navigate('Dicas', { data });
+  function navigateToDicas() {
+    navigation.navigate('Dicas');
   }
 
   function navigateToInfo(fill) {
     navigation.navigate('Info', {cases,confirmed,deaths,recovered,updated_at,fill});
   }
 
-  function navigateToSintomas(data) {
-    navigation.navigate('Sintomas', { data });
+  function navigateToSintomas() {
+    navigation.navigate('Sintomas');
   }
 
-  function navigateToTeste(data) {
-    navigation.navigate('Teste', { data });
+  function navigateToBreve() {
+    navigation.navigate('Breve');
   }
-  function navigateToDevs(data) {
-    navigation.navigate('Devs', { data });
+  function navigateToDevs() {
+    navigation.navigate('Devs');
   }
 
   async function loadInfo(){
@@ -63,33 +63,39 @@ export default function Menu(){
   },[])
 
   return(
-        <ImageBackground style={styles.background} source={require('../../../assets/background.png')}>
-                <View style={styles.viewButton}></View>
-                <View style={styles.rowButton}>
-                    <TouchableOpacity style={styles.button} onPress={() => navigateToDicas(0)}>
-                        <Image style={styles.iconsButton} source={icon_1} />
-                        <Text style={styles.textButton}>Dicas</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={() => navigateToSintomas(0)}>
-                        <Image style={styles.iconsButton} source={icon_2} />
-                        <Text style={styles.textButton}>Sintomas</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.rowButton}>
-                    <TouchableOpacity style={styles.button} onPress={() => navigateToTeste(0)}>
-                        <Image style={styles.iconsButton} source={icon_3} />
-                        <Text style={styles.textButton}>Teste</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={() => navigateToInfo((recovered/confirmed) * 100)}>
-                        <Image style={styles.iconsButton} source={icon_4} />
-                        <Text style={styles.textButton}>Estatística</Text>
-                    </TouchableOpacity>
-                </View>
-                
-                <TouchableOpacity onPress={() => navigateToDevs(0)}>
-                    <Text style={styles.developers}>DESENVOLVEDORES</Text>
+    <ImageBackground style={styles.background} source={require('../../../assets/background.png')}>
+            <View style={styles.viewButton}></View>
+            <View style={styles.rowButton}>
+                <TouchableOpacity style={styles.button} onPress={() => navigateToDicas()}>
+                    <Image style={styles.iconsButton} source={icon_1} />
+                    <Text style={styles.textButton}>Dicas</Text>
                 </TouchableOpacity>
-        </ImageBackground>
+                <TouchableOpacity style={styles.button} onPress={() => navigateToSintomas()}>
+                    <Image style={styles.iconsButton} source={icon_2} />
+                    <Text style={styles.textButton}>Sintomas</Text>
+                </TouchableOpacity>
+            </View>
+            <View style={styles.rowButton}>
+                <TouchableOpacity style={styles.button} onPress={() => navigateToBreve()}>
+                    <Image style={styles.iconsButton} source={icon_3} />
+                    <Text style={styles.textButton}>Teste</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={() => navigateToInfo((recovered/confirmed) * 100)}>
+                    <Image style={styles.iconsButton} source={icon_4} />
+                    <Text style={styles.textButton}>Estatística</Text>
+                </TouchableOpacity>
+            </View>
+                
+            <TouchableOpacity onPress={() => navigateToDevs(0)}>
+                <Text style={styles.developers}>DESENVOLVEDORES</Text>
+            </TouchableOpacity>
+            <AdMobBanner
+              style={{position:'absolute',bottom:0}}
+              bannerSize="fullBanner"
+              adUnitID="ca-app-pub-2415885204681618/4497652900"
+              servePersonalizedAds
+              onDidFailToReceiveAdWithError={(err) => {console.log(err)}} />
+    </ImageBackground>
   );
 }
 
