@@ -1,5 +1,5 @@
-import React from 'react';
-import {StyleSheet,View,Text,ImageBackground, TouchableOpacity} from 'react-native';
+import React, {useState,useEffect} from 'react';
+import {StyleSheet,View,Text,ImageBackground, TouchableOpacity, Animated} from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
 import constants from 'expo-constants';
@@ -10,12 +10,28 @@ import {
 
 export default function Devs(){
 
-
+  const [bottom,setBottom] = useState(new Animated.Value(0))
   const navigation = useNavigation();
   
   function navigateBack() {
     navigation.goBack();
   }
+
+  useEffect(() => {
+
+    Animated.spring(
+      bottom,
+      {
+          toValue:230,
+          speed:1,
+          bounciness:20
+      }
+  ).start();
+
+
+  } ,[])
+
+
 
 
   return(
@@ -25,9 +41,9 @@ export default function Devs(){
             <Feather color={'#666'} size={30} name='chevron-left'></Feather>
           </TouchableOpacity>
         </View>
-        <View style={styles.viewText}>
+        <Animated.View style={[styles.viewText,{paddingBottom:bottom}]}>
           <Text style={styles.text}>SIGA-NOS</Text>
-        </View>
+        </Animated.View>
         <AdMobBanner
               style={{position:'absolute',bottom:0}}
               bannerSize="fullBanner"
@@ -52,7 +68,7 @@ const styles = StyleSheet.create({
     //backgroundColor:'red',
     alignItems:'center',
     justifyContent:'flex-end',
-    paddingBottom:250
+    //paddingBottom:250
   },
   text:{
     fontSize:25,
